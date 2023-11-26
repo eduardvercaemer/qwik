@@ -151,6 +151,10 @@ async function authAction(
   });
   fixCookies(req);
 
+  if (res.status === 302) {
+    throw req.redirect(302, res.headers.get('Location')!);
+  }
+
   try {
     return await res.json();
   } catch (error) {
